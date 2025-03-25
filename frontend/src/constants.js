@@ -1,0 +1,36 @@
+const books = [
+  {
+    _id: "67c9d7b5a5b3f79681c91ec5",
+    title: "General Knowledge",
+    category: "Competitive Exams",
+    subCategory: "",
+    subject: "Competitive Exams",
+    author: "Lucent",
+    condition: "New",
+    price: 150,
+    isFree: false,
+    description: "Best for General awareness",
+    imageUrl:
+      "https://imgs.search.brave.com/HIqzubR6n6luqffi0i-kGezhnemNkkKgG9tfb7f7hIc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zcGNk/bi5zaG9ydHBpeGVs/LmFpL3NwaW8vcmV0/X2ltZyxxX29yaWcs/dG9fd2VicCxzX3dl/YnAvd3d3LnBhdml0/aHJhbi5uZXQvd3At/Y29udGVudC91cGxv/YWRzLzIwMTkvMTIv/THVjZW50LUdlbmVy/YWwtS25vd2xlZGdl/LUdLLVBERi03NjJ4/MTAyNC53ZWJw",
+    uploadedBy: "12345",
+    status: "Available",
+    __v: 0,
+  },
+  {
+    _id: "67c9d819a5b3f79681c91ec7",
+    title: "Concepts of Physics",
+    category: "Science",
+    subCategory: "Class 11",
+    subject: "Science",
+    author: "HC Verma",
+    condition: "Used",
+    price: 650,
+    isFree: false,
+    description: "Best Physics book available in the market",
+    imageUrl:
+      "https://imgs.search.brave.com/EYyruBmhYaE6dx000-yTtm4B5SEESmSjtRKE6a5svB4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzUxWG0yd1h5V3dM/LmpwZw",
+    uploadedBy: "12345",
+    status: "Available",
+    __v: 0,
+  },
+];
