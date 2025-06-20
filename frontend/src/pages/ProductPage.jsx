@@ -3,6 +3,7 @@ import ProductDetails from "../components/Product/ProductDetails";
 import Navbar from "../components/Navbar/Navbar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Title from "../components/Route/Title";
 
 const ProductPage = () => {
   const { _id } = useParams();
@@ -32,7 +33,7 @@ const ProductPage = () => {
   if (error) return <div>Error: {error}</div>;
   
   return (
-    <>
+    <Title titleText={`${book.title} - ${book.author} | ${book.condition}`}>
       <Navbar />
       <div className="flex flex-col md:flex-row p-2 sm:p-8">
         <div className="w-full sm-[90%] md:w-6/12">
@@ -46,7 +47,7 @@ const ProductPage = () => {
         </div>
         <ProductDetails book={book} />
       </div>
-    </>
+    </Title>
   );
 };
 

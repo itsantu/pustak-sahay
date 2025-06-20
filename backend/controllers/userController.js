@@ -16,6 +16,7 @@ const createToken = (_id) => {
 const handleSendingOtp = async (email) => {
   const otp = generateOTP();
   if (!otp) throw new Error("Failed to generate OTP.");
+  // console.log(otp);
 
   saveOTP(email, otp);
 
@@ -83,7 +84,16 @@ const verifyOTPRequest = async (req, res) => {
 };
 
 const signupUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const {
+    name,
+    email,
+    isStudent,
+    educationLevel,
+    stream,
+    phone,
+    password,
+    role,
+  } = req.body;
 
   if (!name || !password || !email) {
     return res.status(400).json({ message: "All fields are required!" });
@@ -102,6 +112,10 @@ const signupUser = async (req, res) => {
       name,
       email,
       password: hash,
+      isStudent,
+      educationLevel,
+      stream,
+      phone,
       role: role || undefined,
     });
 
@@ -111,11 +125,13 @@ const signupUser = async (req, res) => {
 
     const token = createToken(user._id);
     const sendUserDetails = {
-      _id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
-      cartItemCount: user.cartItems.length,
+      cartItemCount: user.cartItems,
+      isStudent: user.isStudent,
+      educationLevel: user.educationLevel,
+      stream: user.stream,
       token,
     };
     return res.status(201).json({
@@ -130,12 +146,12 @@ const signupUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    
+
     if (!password || !email) {
       return res.status(400).json({ message: "All fields are required!" });
     }
 
-    const user = await User.findOne({ email }).select("+password");;
+    const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -148,11 +164,13 @@ const loginUser = async (req, res) => {
     const token = createToken(user._id);
 
     const sendUserDetails = {
-      _id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
-      cartItemCount: user.cartItems.length,
+      cartItems: user.cartItems,
+      isStudent: user.isStudent,
+      educationLevel: user.educationLevel,
+      stream: user.stream,
       token,
     };
     return res.status(200).json({ sendUserDetails, message: "User Logged In" });
@@ -162,6 +180,25 @@ const loginUser = async (req, res) => {
       .json({ message: "Server error!", error: error.message });
   }
 };
+
+const updatePassword = async (req, res) => {
+  const { email, newPassword } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(400).json({ error: "Invalid email" });
+  }
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(newPassword, salt);
+    await User.updateOne({ email }, { password: hash });
+
+    return res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    return res.status(400).json({ error: "Error occured" });
+  }
+}
 
 const deleteUser = async (req, res) => {
   try {
@@ -177,4 +214,5 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { signupUser, sendSignupOTP, sendLoginOtp, loginUser, verifyOTPRequest };
+
+export { signupUser, sendSignupOTP, sendLoginOtp, loginUser, updatePassword, verifyOTPRequest };

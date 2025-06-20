@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import { useUploadBook } from "../hooks/useUploadBook";
+import Title from "../components/Route/Title";
 
 export default function DonateBook() {
   const { loading, error, uploadBook } = useUploadBook();
@@ -43,7 +44,7 @@ export default function DonateBook() {
   };
 
   return (
-    <>
+    <Title titleText="Donate book - Pustak Sahay">
       <Navbar />
       <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
         <h1 className="text-2xl font-bold mb-4 text-center">Donate or Sell a Book</h1>
@@ -153,7 +154,7 @@ export default function DonateBook() {
               onChange={handleChange}
               className="w-full p-2 border rounded-lg focus:ring focus:ring-blue-200"
             >
-              {["Engineering", "Medical", "Finance", "Science", "School", "Competitive Exams", "Literature", "Reference", "Self-Help", "Others"].map((cat) => (
+              {["Engineering", "Medical", "Finance", "Science", "School", "Competitive Exams", "Literature", "Reference", "Self-Help","Fiction", "Others"].map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
                 </option>
@@ -190,6 +191,6 @@ export default function DonateBook() {
           {error && <div className="mt-4 text-red-500">{error}</div>}
         </form>
       </div>
-    </>
+    </Title>
   );
 }

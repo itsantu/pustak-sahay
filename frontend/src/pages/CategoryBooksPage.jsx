@@ -4,29 +4,41 @@ import CategoryBooklist from "../components/Category/CategoryBooklist";
 import Navbar from "../components/Navbar/Navbar";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux"
-import { fetchBooks } from "../redux/slices/bookListSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchBooks,
+  fetchBooksWithFilters,
+} from "../redux/slices/bookListSlice";
+import Title from "../components/Route/Title";
 
 const CategoryBooksPage = () => {
   const dispatch = useDispatch();
   let { category } = useParams();
-  
+
   category = category
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 
-    const { books, booksLoading, booksError } = useSelector((state) => state.books)
-    
+  const { books, booksLoading, booksError } = useSelector(
+    (state) => state.books
+  );
+
   useEffect(() => {
     const url = `http://localhost:8000/api/books/category/${category}`;
-    dispatch(fetchBooks(url))
+    dispatch(fetchBooks(url));
   }, [category, dispatch]);
 
   const [showFilters, setShowFilters] = useState(false);
 
+  const handleApplyFilters = async (filters) => {
+    const queryString = new URLSearchParams(filters).toString();
+    const url = `http://localhost:8000/api/books/category/filters?category=${category+'&'+queryString}`;
+    dispatch(fetchBooksWithFilters(url)); 
+  };
+
   return (
-    <>
+    <Title titleText={"Explore " + category + " books - Pustak Sahay"}>
       <Navbar />
       <div className="container mx-auto p-4">
         {/* Mobile Filter Button */}
@@ -39,7 +51,10 @@ const CategoryBooksPage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Filter Sidebar */}
-          <FilterSidebar showFilters={showFilters} />
+          <FilterSidebar
+            showFilters={showFilters}
+            onApplyFilters={(filters) => handleApplyFilters(filters)}
+          />
 
           {/* Book Listing */}
           {booksLoading ? (
@@ -51,7 +66,7 @@ const CategoryBooksPage = () => {
           )}
         </div>
       </div>
-    </>
+    </Title>
   );
 };
 

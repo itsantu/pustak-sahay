@@ -37,7 +37,6 @@ export const useLogin = () => {
         dispatch(loginUser(response.data.sendUserDetails));
         navigate("/")
       } else {
-        console.log("this part running");
         setError(response.data.message);
       }
     } catch (error) {

@@ -7,6 +7,8 @@ import bookSubmissionRouter from "./routes/bookSubmissionRoutes.js";
 import bookRouter from "./routes/bookRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import cartRouter from "./routes/cartRoutes.js"
+import schloRouter from "./routes/scholarship.routes.js"
+import certificateRouter from './routes/certificateRoutes.js';
 
 dotenv.config();
 
@@ -24,7 +26,9 @@ app.get("/", (req, res) => {
 app.use("/api/booksubmission", bookSubmissionRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/auth", userRouter);
-app.use("/api/cart", cartRouter)
+app.use("/api/user/cart", cartRouter)
+app.use("/api/scholarship", schloRouter)
+app.use("/api/user/certificates", certificateRouter)
 
 // MongoDB Connection and Server Start
 const connectDB = async () => {

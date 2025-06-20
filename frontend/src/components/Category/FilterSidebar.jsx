@@ -1,11 +1,26 @@
 import React, { useState } from "react";
 
-const FilterSidebar = ({ showFilters }) => {
+const FilterSidebar = ({ showFilters, onApplyFilters }) => {
+  const [sortBy, setSortBy] = useState("Relevance");
+  const [condition, setCondition] = useState("New");
   const [showFree, setShowFree] = useState(false);
+  const [priceRange, setPriceRange] = useState("All");
 
   const handleCheckboxChange = () => {
     setShowFree((prev) => !prev);
+    if (!showFree) setPriceRange("All"); // reset price if checkbox is selected
   };
+
+  const handleApplyFilters = () => {
+    const filters = {
+      sortBy,
+      condition,
+      showFree,
+      priceRange: showFree ? "Free" : priceRange,
+    };
+    onApplyFilters(filters); // Send to parent
+  };
+
   return (
     <div
       className={`absolute md:relative z-10 bg-gray-200 p-4 shadow-lg md:shadow-none md:block transition-transform duration-300 ease-in-out h-screen overflow-y-auto ${
@@ -17,21 +32,30 @@ const FilterSidebar = ({ showFilters }) => {
       <div className="space-y-2.5">
         <label className="block">
           <span className="text-gray-700">Sort By:</span>
-          <select className="w-full p-2 border rounded cursor-pointer">
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="w-full p-2 border rounded cursor-pointer"
+          >
             <option value="Relevance">Relevance</option>
             <option value="PriceHL">Price - High to Low</option>
             <option value="PriceLH">Price - Low to High</option>
-            <option value="NewestFirst">Newest First</option>
           </select>
         </label>
+
         <label className="block">
           <span className="text-gray-700">Condition:</span>
-          <select className="w-full p-2 border rounded cursor-pointer">
+          <select
+            value={condition}
+            onChange={(e) => setCondition(e.target.value)}
+            className="w-full p-2 border rounded cursor-pointer"
+          >
             <option value="New">New</option>
             <option value="Like New">Like New</option>
             <option value="Used">Used</option>
           </select>
         </label>
+
         <label className="block text-sm font-medium">
           Free books?
           <input
@@ -45,29 +69,26 @@ const FilterSidebar = ({ showFilters }) => {
         <label className="block">
           <span className="text-gray-700">Price range:</span>
           <select
+            value={priceRange}
+            onChange={(e) => setPriceRange(e.target.value)}
             className={`${
               showFree && "text-gray-400"
             } w-full p-2 border rounded cursor-pointer`}
             disabled={showFree}
           >
             <option value="All">All</option>
-            <option value="200">0-200</option>
-            <option value="500">201-500 </option>
-            <option value="1000">500-1000</option>
-            <option value="1500">1000-1500</option>
-            <option value="2000+">1500 & above</option>
+            <option value="0-200">0-200</option>
+            <option value="201-500">201-500 </option>
+            <option value="501-1000">501-1000</option>
+            <option value="1001-1500">1001-1500</option>
+            <option value="1500-10000">1500 & above</option>
           </select>
         </label>
-        <label className="block">
-          <span className="text-gray-700">Binding:</span>
-          <select className="w-full p-2 border rounded cursor-pointer">
-            <option value="Paperback">Paperback</option>
-            <option value="Hardcover">Hardcover</option>
-            <option value="Board Book">Board Book</option>
-            <option value="Leather Bound">Leather Bound</option>
-          </select>
-        </label>
-        <button className="mt-2 bg-blue-600 text-white px-4 py-1 rounded cursor-pointer hover:bg-blue-700 transition-all duration-300">
+
+        <button
+          className="mt-2 bg-blue-600 text-white px-4 py-1 rounded cursor-pointer hover:bg-blue-700 transition-all duration-300"
+          onClick={handleApplyFilters}
+        >
           Apply filters
         </button>
       </div>

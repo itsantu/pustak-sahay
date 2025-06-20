@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { LiaStarSolid } from "react-icons/lia";
-import { matchPath } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/slices/cartSlice";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
 const ProductDetails = ({ book }) => {
-  // const title = "Geetanjali";
-  // const brand = "Rabindra";
+  const { email, loading } = useSelector((state) => state?.user?.user);
+  const dispatch = useDispatch();
+  const [addedToCart, setAddedToCart] = useState(false)
+  
   const rating = 3.8;
   const reviews = [
     { id: 1, rating: 5 },
@@ -12,17 +18,14 @@ const ProductDetails = ({ book }) => {
     { id: 4, rating: 4 },
     { id: 5, rating: 4 },
   ];
-  // const originalPrice = 250;
-  // const price = 200;
-  // const discount = 20;
-  // const description =
-  //   "The book is a collection of poems by the Indian poet Rabindranath Tagore.";
   const warrantyInformation = "Not Covered";
   const returnPolicy = "No Returns Accepted";
   const minimumOrderQuantity = 1;
   const shippingInformation = "Ships within 3 days";
 
   const {
+    _id,
+    imageUrl,
     title,
     author,
     publisher,
@@ -36,8 +39,41 @@ const ProductDetails = ({ book }) => {
     status,
   } = book;
 
-  const handleAddToCart = () => {};
+  const handleAddToCart = async () => {
+    const item = {
+      bookId: _id,
+      title,
+      author,
+      condition,
+      price: sellingPrice,
+      imageUrl: imageUrl,
+      count: 1
+    };
 
+    try {
+      const res = await axios.post(`http://localhost:8000/api/user/cart`, {
+        email,
+        bookId: book._id,
+      });
+
+      if (res.status >= 200 && res.status < 300) {
+        alert(res.data?.message);
+        dispatch(addToCart(item));
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        const updatedCartitems = userInfo?.cartItems
+        ? [item, ...userInfo.cartItems]
+        : [item];
+        userInfo.cartItems = updatedCartitems;
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        setAddedToCart(true)
+      }
+    } catch (error) {
+      console.error("Error removing item:", error);
+    }
+
+  };
+
+  if (loading) return <div>Loading...</div>
   return (
     <div className=" mt-2 md:mt-0 ml-1 md:ml-2 lg:ml-4 w-full sm:w-[90%] md:w-6/12">
       <h1 className="font-semibold text-xl lg:text-2xl">{title}</h1>
@@ -52,7 +88,10 @@ const ProductDetails = ({ book }) => {
           {author}
         </a>
       </p>
-      <p className="text-zinc-500 font-semibold text-sm">{publisher}<span className="text-gray-500 ml-1 font-normal">(Publication)</span></p>
+      <p className="text-zinc-500 font-semibold text-sm">
+        {publisher}
+        <span className="text-gray-500 ml-1 font-normal">(Publication)</span>
+      </p>
 
       <div>
         <p className="mt-3 text-[1rem] rounded-sm w-fit">
@@ -83,21 +122,6 @@ const ProductDetails = ({ book }) => {
       </div>
 
       <div>
-        {/* <p className="font-semibold text-emerald-600 text-sm lg:text-base">
-          Special price
-        </p>
-        <div className="flex items-center">
-          <h1 className="text-2xl lg:text-3xl font-semibold">
-            {"₹ " + price.toLocaleString("en-IN")}
-          </h1>
-          <p className="ml-3 text-zinc-500 line-through">
-            {"₹" + originalPrice}
-          </p>
-          <p className="ml-3 text-emerald-600 font-semibold">
-            {discount + "% off"}
-          </p>
-        </div> */}
-
         <p className="text-green-600 text-3xl font-semibold mt-1">
           ₹{sellingPrice}{" "}
           <span className="text-gray-400 text-lg line-through">
@@ -138,14 +162,16 @@ const ProductDetails = ({ book }) => {
           {!(status === "Sold") && (
             <div className="my-2">
               <button
-                className="bg-emerald-600 w-40 py-2 font-semibold lg:text-lg text-white rounded hover:bg-emerald-700"
+                className="bg-emerald-600 w-40 py-2 font-semibold lg:text-lg text-white rounded hover:bg-emerald-700 cursor-pointer"
                 onClick={() => handleAddToCart()}
               >
-                Add to Cart
+                {!addedToCart ? "Add to Cart" : "Added to cart"}
               </button>
-              <button className="bg-sky-900 w-40 py-2 ml-1.5 font-semibold lg:text-lg text-white rounded hover:bg-sky-950">
-                Buy Now
-              </button>
+              <Link to="/checkout">
+                <button className="bg-yellow-500 w-40 py-2 ml-1.5 font-semibold lg:text-lg text-white rounded hover:bg-yellow-600 cursor-pointer">
+                  Buy Now
+                </button>
+              </Link>
             </div>
           )}
         </div>

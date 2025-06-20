@@ -2,22 +2,26 @@ import { useState } from "react";
 import axios from "axios";
 import { useSentOTP } from "../../hooks/useSendOTP";
 
-const EmailStep = ({ setStep, setEmail }) => {
-  const { sendOTP, loading, error } = useSentOTP();
+const EmailStep = ({ signupReq, setStep, setEmail }) => {
+  const { sendOTP, sendOTPforForgotPassword, loading, error } = useSentOTP();
   const [emailInput, setEmailInput] = useState("");
 
   const handleSendOtp = async (e) => {
-    e.preventDefault()
-    await sendOTP({ email: emailInput, setStep });
-    setEmail(emailInput)
+    e.preventDefault();
+    if (signupReq) {
+      await sendOTP({ email: emailInput, setStep });
+    } else {
+      await sendOTPforForgotPassword({ email: emailInput, setStep });
+    }
+    setEmail(emailInput);
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
+        {/* <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
           Sign Up
-        </h2>
+        </h2> */}
         <form onSubmit={handleSendOtp}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-600 mb-2">

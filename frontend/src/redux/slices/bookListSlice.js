@@ -21,6 +21,21 @@ export const fetchBooks = createAsyncThunk(
   }
 );
 
+export const fetchBooksWithFilters = createAsyncThunk(
+  "books/fetchBooksWithFilters", 
+  async (urlWithFilters, {rejectWithValue}) => {
+    try {
+      console.log(urlWithFilters)
+      const response = await axios.get(urlWithFilters);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      }
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to fetch books");
+    }
+  }
+)
+
 const bookListSlice = createSlice({
   name: "books",
   initialState,
@@ -39,6 +54,18 @@ const bookListSlice = createSlice({
       state.books = action.payload;
     });
     builder.addCase(fetchBooks.rejected, (state, action) => {
+      state.booksError = action.payload; 
+      state.booksLoading = false;
+    });
+    builder.addCase(fetchBooksWithFilters.pending, (state) => {
+      state.booksLoading = true;
+      state.booksError = null;
+    });
+    builder.addCase(fetchBooksWithFilters.fulfilled, (state, action) => {
+      state.booksLoading = false; 
+      state.books = action.payload;
+    });
+    builder.addCase(fetchBooksWithFilters.rejected, (state, action) => {
       state.booksError = action.payload; 
       state.booksLoading = false;
     });

@@ -9,7 +9,7 @@ const SignupFlow = () => {
 
   return (
     <div>
-      {step === 1 && <EmailStep setStep={setStep} setEmail={setEmail} />}
+      {step === 1 && <EmailStep signupReq={true} setStep={setStep} setEmail={setEmail} />}
       {step === 2 && <OtpStep setStep={setStep} email={email} />}
       {step === 3 && <DetailsStep email={email} />}
     </div>

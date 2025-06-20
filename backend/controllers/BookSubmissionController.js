@@ -42,7 +42,7 @@ const addBookSubmission = async (req, res) => {
       });
       imageUrl = uploadResult.url;
     } catch (error) {
-      console.log("Cloudinary Error:", error);
+      // console.log("Cloudinary Error:", error);
       return res.status(500).json({ message: "Error in uploading image" });
     }
 

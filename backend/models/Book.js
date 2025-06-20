@@ -27,6 +27,7 @@ const bookSchema = new mongoose.Schema(
         "Literature",
         "Reference",
         "Self-Help",
+        "Fiction"
       ],
       required: true,
       index: true,

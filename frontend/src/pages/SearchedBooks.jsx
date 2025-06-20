@@ -5,6 +5,7 @@ import { fetchBooks } from "../redux/slices/bookListSlice";
 import CategoryBooklist from "../components/Category/CategoryBooklist";
 import Navbar from "../components/Navbar/Navbar";
 import FilterSidebar from "../components/Category/FilterSidebar";
+import { MdOutlineFilterAlt, MdOutlineFilterAltOff } from "react-icons/md";
 
 const SearchedBooks = () => {
   const dispatch = useDispatch();
@@ -26,10 +27,10 @@ const SearchedBooks = () => {
       <div className="container mx-auto p-4">
         {/* Mobile Filter Button */}
         <button
-          className="md:hidden bg-blue-600 text-white px-4 py-2 rounded mb-4"
+          className="md:hidden bg-gray-300 text-slate-700 text-2xl p-1 md:px-4 md:py-2 rounded mb-4"
           onClick={() => setShowFilters(!showFilters)}
         >
-          {showFilters ? "Hide Filters" : "Show Filters"}
+          {showFilters ? <MdOutlineFilterAltOff/> : <MdOutlineFilterAlt/>}
         </button>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

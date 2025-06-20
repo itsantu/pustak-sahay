@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const DiscountBanner = () => {
   return (
     <div className="p-4 py-10">
@@ -16,9 +17,11 @@ const DiscountBanner = () => {
             your certificate and enjoy special savings on our collection of old
             books. Hard work should always pay off!
           </p>
-          <button className="bg-white text-blue-500 font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-blue-100 transition-transform transform cursor-pointer hover:scale-105">
-            Claim Your Discount
-          </button>
+          <Link to="/certificate-form">
+            <button className="bg-white text-blue-500 font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-blue-100 transition-transform transform cursor-pointer hover:scale-105">
+              Claim Your Discount
+            </button>
+          </Link>
         </div>
       </div>
     </div>

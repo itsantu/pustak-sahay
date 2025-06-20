@@ -9,7 +9,7 @@ const DonateBanner = () => {
         className="absolute inset-0 bg-cover bg-center opacity-30"
         style={{
           backgroundImage:
-            "url('/donatebg.webp')"
+            "url('/donate.jpg')"
         }}
       ></div>
 

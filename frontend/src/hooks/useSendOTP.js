@@ -9,13 +9,40 @@ export const useSentOTP = () => {
     setLoading(true);
     setError(null);
     try {
-      await axios.post("http://localhost:8000/api/auth/otp/signup", {
-        email,
-      });
+      const res = await axios.post(
+        "http://localhost:8000/api/auth/otp/signup",
+        { email }
+      );
+      console.log(res.data.message);
       setStep(2);
     } catch (error) {
-      console.log(error.message);
-      setError(error.message);
+      if (error.response) {
+        // Backend responded with a status code not in 2xx
+        setError(error.response.data.message);
+      } else {
+        // Other errors (network, etc.)
+        setError("Something went wrong. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const sendOTPforForgotPassword = async ({ email, setStep }) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await axios.post("http://localhost:8000/api/auth/otp/login", {
+        email,
+      });
+      alert(res.data.message);
+      setStep(2);
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -43,5 +70,5 @@ export const useSentOTP = () => {
     }
   };
 
-  return { sendOTP, verifyOTP, loading, error };
+  return { sendOTP, sendOTPforForgotPassword, verifyOTP, loading, error };
 };

@@ -9,6 +9,7 @@ import WhyUs from "../components/Home/Whyus";
 import Navbar from "../components/Navbar/Navbar";
 import axios from "axios";
 import DiscountBanner from "../components/Home/DiscountBanner";
+import Title from "../components/Route/Title";
 
 const Home = () => {
   const medicalBooks = [
@@ -102,8 +103,7 @@ const Home = () => {
     fetchBookDetail();
   }, );
   return (
-    <div>
-      <>
+      <Title titleText="Home Page - Pustak Sahay">
         <Navbar />
         <Banner />
         <CategoryList />
@@ -115,8 +115,7 @@ const Home = () => {
         <WhyUs />
         <DonateBanner />
         <Footer />
-      </>
-    </div>
+      </Title>
   );
 };
 

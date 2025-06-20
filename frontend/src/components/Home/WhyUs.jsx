@@ -1,10 +1,35 @@
 import {
   FaCheckCircle,
   FaBoxOpen,
-  FaShippingFast,
   FaShieldAlt,
+  FaShippingFast,
 } from "react-icons/fa";
 import { LuHeartHandshake } from "react-icons/lu";
+
+const features = [
+  {
+    icon: <FaCheckCircle className="text-yellow-500 text-5xl mb-4" />,
+    title: "Verified Quality",
+    description: "We carefully check each book's condition before shipping.",
+  },
+  {
+    icon: <FaBoxOpen className="text-yellow-500 text-5xl mb-4" />,
+    title: "Secure Packaging",
+    description: "Every book is packed with care to prevent damage in transit.",
+  },
+  {
+    icon: <LuHeartHandshake className="text-yellow-500 text-5xl mb-4" />,
+    title: "Donors Commitment",
+    description:
+      "Donor ensures the quality of books as per Book Condition Guidelines",
+  },
+  {
+    icon: <FaShieldAlt className="text-yellow-500 text-5xl mb-4" />,
+    title: "Trusted Service",
+    description:
+      "Your satisfaction is our priority, with a hassle-free process.",
+  },
+];
 
 const WhyUs = () => {
   return (
@@ -16,49 +41,18 @@ const WhyUs = () => {
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Feature 1 */}
-          <div className="flex flex-col items-center p-6 shadow-lg rounded-lg bg-gray-100">
-            <FaCheckCircle className="text-blue-600 text-5xl mb-4" />
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">
-              Verified Quality
-            </h3>
-            <p className="text-gray-600 text-center">
-              We carefully check each book's condition before shipping.
-            </p>
-          </div>
-
-          {/* Feature 2 */}
-          <div className="flex flex-col items-center p-6 shadow-lg rounded-lg bg-gray-100">
-            <FaBoxOpen className="text-blue-600 text-5xl mb-4" />
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">
-              Secure Packaging
-            </h3>
-            <p className="text-gray-600 text-center">
-              Every book is packed with care to prevent damage in transit.
-            </p>
-          </div>
-
-          {/* Feature 3 */}
-          <div className="flex flex-col items-center p-6 shadow-lg rounded-lg bg-gray-100">
-            <LuHeartHandshake className="text-blue-600 text-5xl mb-4" />
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">
-            Donors Commitment
-            </h3>
-            <p className="text-gray-600 text-center">
-            Donor ensures the quality of books as per Book Condition Guidelines
-            </p>
-          </div>
-
-          {/* Feature 4 */}
-          <div className="flex flex-col items-center p-6 shadow-lg rounded-lg bg-gray-100">
-            <FaShieldAlt className="text-blue-600 text-5xl mb-4" />
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">
-              Trusted Service
-            </h3>
-            <p className="text-gray-600 text-center">
-              Your satisfaction is our priority, with a hassle-free process.
-            </p>
-          </div>
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center p-6 shadow-lg rounded-lg bg-gray-100 transform transition-transform duration-300 hover:-translate-y-2"
+            >
+              {feature.icon}
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 text-center">{feature.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
