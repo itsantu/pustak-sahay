@@ -19,16 +19,16 @@
 
 ## 🖼️ Project Preview
 ### Home Screen
-<img width="944" alt="Home Screen - Pustak Sahay" src="https://github.com/user-attachments/assets/ab8d2427-18aa-4bb8-82cb-4c0a53c3cd74" />
+<img width="470" alt="Home Screen - Pustak Sahay" src="https://github.com/user-attachments/assets/ab8d2427-18aa-4bb8-82cb-4c0a53c3cd74" />
 
 ### Cart Page
-<img width="953" alt="Cart Page - Pustak Sahay" src="https://github.com/user-attachments/assets/ebd56c5d-4ef0-4881-876e-281ea7e454cb" />
+<img width="470" alt="Cart Page - Pustak Sahay" src="https://github.com/user-attachments/assets/ebd56c5d-4ef0-4881-876e-281ea7e454cb" />
 
 ### Product Page
-<img width="941" alt="Product Page - Pustak Sahay" src="https://github.com/user-attachments/assets/4d3551fd-a486-4dec-be16-815028e61e2a" />
+<img width="470" alt="Product Page - Pustak Sahay" src="https://github.com/user-attachments/assets/4d3551fd-a486-4dec-be16-815028e61e2a" />
 
 ### User Dashboard
-<img width="959" alt="User Dashboard - Pustak Sahay" src="https://github.com/user-attachments/assets/38cfcbaf-3065-4c3b-8d8c-e8446e4eec3a" />
+<img width="470" alt="User Dashboard - Pustak Sahay" src="https://github.com/user-attachments/assets/38cfcbaf-3065-4c3b-8d8c-e8446e4eec3a" />
 
 ---
 
