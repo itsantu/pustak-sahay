@@ -54,7 +54,7 @@ const Checkout = () => {
 
   const handleCouponApplied = (value, isPercentage) => {
     const num = parseInt(value);
-
+    console.log(value, isPercentage)
     if (isPercentage) {
       setTotalPrice(totalPrice - (totalPrice * num) / 100);
     } else {

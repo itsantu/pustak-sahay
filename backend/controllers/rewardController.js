@@ -12,11 +12,13 @@ const createRewardForUser = async (req, res) => {
     minimumPrice = 0,
   } = req.body;
 
+  console.log(req.body)
+  console.log("----------------")
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    let valueStr = "";
+    let valueStr = value;
     if (isPercentage) {
       valueStr = value + "%";
     }
@@ -28,12 +30,15 @@ const createRewardForUser = async (req, res) => {
     const newReward = {
       name,
       value: valueStr,
+      isPercentage,
       terms,
       durationInMonths,
       usageLimit,
       minimumPrice,
       expiresAt,
     };
+
+    console.log(newReward)
 
     user.rewards.push(newReward);
     await user.save();

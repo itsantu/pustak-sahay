@@ -7,6 +7,7 @@ const addCertificate = async (req, res) => {
   try {
     const {
       name,
+      email,
       phone,
       dob,
       institution,
@@ -48,6 +49,7 @@ const addCertificate = async (req, res) => {
 
     const certificateSubmitted = await Certificate.create({
       name,
+      email,
       phone,
       dob,
       certificateName,

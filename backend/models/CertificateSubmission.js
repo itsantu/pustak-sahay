@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const certificateSubmissionSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
+    email: {type: String, required: true},
     phone: { type: String, required: true, unique: true },
     dob: { type: Date },
     institution: { type: String, required: true },

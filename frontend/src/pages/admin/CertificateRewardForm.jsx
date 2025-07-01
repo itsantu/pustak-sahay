@@ -6,11 +6,12 @@ const CertificateRewardForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const { name, certName } = location.state ?? {}
+  const { name, certName, email } = location.state ?? {}
 
   const [rewardData, setRewardData] = useState({
     id,
     name: "",
+    email,
     isPercentage: false,
     value: "",
     terms: "",
@@ -48,7 +49,7 @@ const CertificateRewardForm = () => {
     try {
       const token = localStorage.getItem("token"); // or get from Redux
       await axios.post(
-        `http://localhost:8000/api/reward/allot/${id}`,
+        `http://localhost:8000/api/auth/create-reward`,
         finalReward,
         {
           headers: {
@@ -64,7 +65,6 @@ const CertificateRewardForm = () => {
     }
   };
 
-  console.log(certName)
   return (
     <div className="max-w-2xl mx-auto p-4 bg-white shadow-lg rounded-lg mt-6">
       <h2 className="text-2xl font-bold mb-4 text-center">Allot Reward</h2>

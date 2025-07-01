@@ -104,6 +104,7 @@ const CertificateForReview = () => {
               state={{
                 name: certificateData.name,
                 certName: certificateData.certificateName,
+                email: certificateData.email
               }}
               className="flex-1 "
             >
